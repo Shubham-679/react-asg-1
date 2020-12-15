@@ -1,67 +1,69 @@
-import React, { Component } from "react";
+import React, { useState, useRef } from "react";
 
-class Timer extends Component {
-  state = {
-    time: {},
-    seconds: 10,
+const Timer = () => {
+  const [timer, setTimer] = useState(5);
+  const [isPaused, setIsPaused] = useState(false);
+  const decrement = useRef(null);
+
+  const handleStart = () => {
+    setIsPaused(true);
+    decrement.current = setInterval(() => {
+      setTimer((timer) => timer - 1);
+    }, 1000);
   };
 
-  timer = 0;
-
-  secondsToTime = (secs) => {
-    let hours = Math.floor(secs / (60 * 60));
-    let minutes = Math.floor((secs % (60 * 60)) / 60);
-    let seconds = Math.ceil((secs % (60 * 60)) % 60);
-
-    if (hours < 10) hours = "0" + hours;
-    if (minutes < 10) minutes = "0" + minutes;
-    if (seconds < 10) seconds = "0" + seconds;
-
-    let obj = {
-      h: hours,
-      m: minutes,
-      s: seconds,
-    };
-    return obj;
+  const handlePause = () => {
+    clearInterval(decrement.current);
+    setIsPaused(false);
   };
 
-  componentDidMount() {
-    let timeLeft = this.secondsToTime(this.state.seconds);
-    this.setState({ time: timeLeft });
-  }
-
-  startTimer = () => {
-    if (this.timer === 0 && this.state.seconds > 0) {
-      this.timer = setInterval(this.countDown, 1000);
-    }
+  const handleResume = () => {
+    setIsPaused(true);
+    decrement.current = setInterval(() => {
+      setTimer((timer) => timer - 1);
+    }, 1000);
   };
 
-  countDown = () => {
-    let seconds = this.state.seconds - 1;
-    this.setState({
-      time: this.secondsToTime(seconds),
-      seconds: seconds,
-    });
-
-    if (seconds === 0) {
-      clearInterval(this.timer);
-    }
+  const stop = () => {
+    clearInterval(decrement.current);
+    setIsPaused(false);
+    setTimer(0);
   };
 
-  render() {
-    return (
+  const timeLeft = () => {
+    const getSeconds = `0${timer % 60}`.slice(-2);
+    const minutes = `${Math.floor(timer / 60)}`;
+    const getMinutes = `0${minutes % 60}`.slice(-2);
+    const getHours = `0${Math.floor(timer / 3600)}`.slice(-2);
+
+    if(getSeconds <0)  return stop();
+
+    return `${getHours} : ${getMinutes} : ${getSeconds}`;
+  };
+
+  return (
+    <div>
+      <h3></h3>
       <div>
-        <h1>
-         
-          {this.state.time.h} : {this.state.time.m} : {this.state.time.s} (Hours Left)
-
-        </h1>
-        <button className="btn btn-primary" onClick={this.startTimer}>
-          Start
-        </button>
+        <h1>{timeLeft()}</h1>
+        <div>
+          {!isPaused ? (
+            <button className="btn btn-primary m-2" onClick={handleStart}>
+              Start
+            </button>
+          ) : isPaused ? (
+            <button className="btn btn-danger m-2" onClick={handlePause}>
+              Pause
+            </button>
+          ) : (
+            <button className="btn btn-primary m-2" onClick={handleResume}>
+              Resume
+            </button>
+          )}
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Timer;

@@ -1,24 +1,31 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-class Photo extends Component {
-  state = {
-    photos: [],
-  };
-  async componentDidMount() {
-    const { data: photos } = await axios.get(
-      "https://jsonplaceholder.typicode.com/photos"
-    );
-    this.setState({ photos });
-  }
-  render() {
+const Photo = (props) => {
+
+  const [photos, setState] = useState([]);
+  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data: photos } = await axios.get(
+          "https://jsonplaceholder.typicode.com/photos"
+        );
+        setState(photos);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    fetchData();
+  });
+  
     return (
       <div>
         <div class="container">
           <div class="row">
-            {this.state.photos.map((photo) => (
-              <div className="col-sm-2">
-                <img className="img-thumbnail" src={photo.thumbnailUrl}></img>
+            {photos.map((photo) => (
+              <div className="col-sm-2" key={photo.id}>
+                <img className="img-thumbnail" src={photo.thumbnailUrl} alt=""></img>
               </div>
             ))}
           </div>
@@ -26,6 +33,5 @@ class Photo extends Component {
       </div>
     );
   }
-}
 
 export default Photo;

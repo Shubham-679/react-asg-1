@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom";
 
-const Album = () => {
+const UserAlbum = (props) => {
 
-  const [albums, setState] = useState([]);
+  const [userAlbum, setState] = useState([]);
   
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data: albums } = await axios.get(
-          "https://jsonplaceholder.typicode.com/albums"
+        const userId  = props.match.params.id;
+        const { data: userAlbum } = await axios.get(
+          'https://jsonplaceholder.typicode.com/users/'+ userId +'/albums'
         );
-        setState(albums);
+        setState(userAlbum);
       } catch (e) {
         console.error(e);
       }
     }
     fetchData();
   });
-
+  
         return ( 
        <div>
            <div><h1>Our Latest Albums</h1></div>
@@ -27,15 +27,13 @@ const Album = () => {
             <table className="table">
               <thead>
                 <tr>
-                  <th>S.No</th>
                   <th>Album Title</th>
                 </tr>
               </thead>
               <tbody>
-                {albums.map((album) => (
-                  <tr key={album.id}>
-                    <td>{album.id}</td>  
-                    <td><Link to={`/photos/${album.id}`}>{album.title}</Link></td>
+                {userAlbum.map((useralbum) => (
+                  <tr key={useralbum.id}> 
+                    <td>{useralbum.title}</td>
                   </tr>
                 ))}
               </tbody>
@@ -45,4 +43,4 @@ const Album = () => {
          );
     }
  
-export default Album;
+export default UserAlbum;

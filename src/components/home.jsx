@@ -1,20 +1,30 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-class Home extends Component {
-    state = {
-        users: []
-      };
-      
-      async componentDidMount() { 
-        const { data: users} = await axios.get('https://jsonplaceholder.typicode.com/users')
-        this.setState({ users });
+const Home = (props) => {
+  const [users, setState] = useState([]);
+  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data: users } = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        setState(users);
+      } catch (e) {
+        console.error(e);
       }
-  render() {
-    return (
-        <div>
-            <div><h1>Users Details</h1></div>
-            <div>
+    }
+    fetchData();
+  });
+
+  return (
+    <div>
+      <div>
+        <h1>Users Details</h1>
+      </div>
+      <div>
         <table className="table">
           <thead>
             <tr>
@@ -28,11 +38,13 @@ class Home extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.users.map((user) => (
+            {users.map((user) => (
               <tr key={user.id}>
-                <td>{user.id}</td>  
+                <td>{user.id}</td>
                 <td>{user.name}</td>
-                <td>{user.username}</td>
+                <td>
+                  <Link to={`/album/${user.id}`}>{user.username}</Link>
+                </td>
                 <td>{user.email}</td>
                 <td>{user.address.city}</td>
                 <td>{user.phone}</td>
@@ -42,10 +54,8 @@ class Home extends Component {
           </tbody>
         </table>
       </div>
-
-        </div>
-          );
-  }
-}
+    </div>
+  );
+};
 
 export default Home;

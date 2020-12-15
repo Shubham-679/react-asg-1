@@ -6,15 +6,19 @@ import Album from './components/album';
 import Photo from './components/photo';
 import Count from './components/count';
 import Timer from './components/timer';
+import UserAlbum from './components/userAlbum';
+import AlbumPhotos from './components/albumPhotos';
 
 function App() {
 
   return (
     <div className="App">
       <Navigation/>
-      <Switch>
+      <Switch> 
+      <Route path="/album/:id" component={UserAlbum} />
         <Route path="/home" component={Home} />
         <Route path="/albums" component={Album} />
+        <Route path="photos/:id" component={AlbumPhotos} />
         <Route path="/photos" component={Photo} /> 
         <Route path="/count" component={Count} /> 
         <Route path="/timer" component={Timer} />        

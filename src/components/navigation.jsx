@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 
-class Navigation extends Component {
-    state = {  }
-    render() { 
+const Navigation = (props) => {
+    
         return (
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,6 +29,6 @@ class Navigation extends Component {
             </div>
         );
     }
-}
+
  
 export default Navigation;
