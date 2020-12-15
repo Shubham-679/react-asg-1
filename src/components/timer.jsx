@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
 const Timer = () => {
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(35595);
   const [isPaused, setIsPaused] = useState(false);
   const decrement = useRef(null);
 
