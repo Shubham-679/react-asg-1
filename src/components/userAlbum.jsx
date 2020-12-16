@@ -4,11 +4,11 @@ import axios from 'axios';
 const UserAlbum = (props) => {
 
   const [userAlbum, setState] = useState([]);
+  const userId  = props.match.params.id;
   
   useEffect(() => {
     async function fetchData() {
-      try {
-        const userId  = props.match.params.id;
+      try {        
         const { data: userAlbum } = await axios.get(
           'https://jsonplaceholder.typicode.com/users/'+ userId +'/albums'
         );
@@ -18,11 +18,11 @@ const UserAlbum = (props) => {
       }
     }
     fetchData();
-  });
+  },[]);
   
         return ( 
        <div>
-           <div><h1>Our Latest Albums</h1></div>
+           <div><h1> Albums of user { userId }</h1></div>
            <div>
             <table className="table">
               <thead>

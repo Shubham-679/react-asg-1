@@ -87,7 +87,7 @@ const Album = (props) => {
                   </button>
                 </td>
                 <td>
-                  <Link to={`/photos/${album.id}`}>{album.title}</Link>
+                  <Link to={`/albumphotos/${album.id}`}>{album.title}</Link>
                 </td>
                 <td>
                   <button

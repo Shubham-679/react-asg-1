@@ -3,11 +3,11 @@ import axios from "axios";
 
 const AlbumPhoto = (props) => {
   const [photos, setState] = useState([]);
-
+  const photoId = props.match.params.id;
   useEffect(() => {
     async function fetchData() {
       try {
-        const photoId = props.match.params.id;
+        
         const { data: photos } = await axios.get(
           "https://jsonplaceholder.typicode.com/albums/" + photoId + "/photos"
         );
@@ -17,17 +17,20 @@ const AlbumPhoto = (props) => {
       }
     }
     fetchData();
-  });
+  }, []);
 
   return (
     <div>
-      <div class="container">
-        <div class="row">
+      <div>
+        <h1> Photos of Album {photoId}</h1>
+        </div>
+      <div className="container">
+        <div className="row">
           {photos.map((photo) => (
             <div className="col-sm-2" key={photo.id}>
               <img
                 className="img-thumbnail"
-                src={photo.thumbnailUrl}
+                src={photo.url}
                 alt=""
               ></img>
             </div>

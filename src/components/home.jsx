@@ -43,7 +43,7 @@ const Home = (props) => {
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>
-                  <Link to={`/album/${user.id}`}>{user.username}</Link>
+                  <Link to={`/useralbums/${user.id}`}>{user.username}</Link>
                 </td>
                 <td>{user.email}</td>
                 <td>{user.address.city}</td>

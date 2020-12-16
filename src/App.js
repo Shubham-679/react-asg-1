@@ -15,10 +15,10 @@ function App() {
     <div className="App">
       <Navigation/>
       <Switch> 
-      <Route path="/album/:id" component={UserAlbum} />
+      <Route path="/useralbums/:id" component={UserAlbum} />
         <Route path="/home" component={Home} />
         <Route path="/albums" component={Album} />
-        <Route path="photos/:id" component={AlbumPhotos} />
+        <Route path="/albumphotos/:id" component={AlbumPhotos} />
         <Route path="/photos" component={Photo} /> 
         <Route path="/count" component={Count} /> 
         <Route path="/timer" component={Timer} />        

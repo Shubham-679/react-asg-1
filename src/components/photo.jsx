@@ -17,15 +17,32 @@ const Photo = (props) => {
       }
     }
     fetchData();
-  });
+  },[]);
+
+  const handleAdd = async () => {
+
+    const obj = { url: "https://via.placeholder.com/600/d32776" };
+    const { data: photo } = await axios.post(
+      "https://jsonplaceholder.typicode.com/albums",
+      obj
+    );
+
+    setState((photos) => [photo, ...photos]);
+
+  }
   
     return (
       <div>
-        <div class="container">
-          <div class="row">
+        <div>
+      <button className="btn btn-primary btn-lg m-2" onClick={()=>handleAdd()}>
+          Add
+        </button>
+        </div>
+        <div className="container">
+          <div className="row">
             {photos.map((photo) => (
               <div className="col-sm-2" key={photo.id}>
-                <img className="img-thumbnail" src={photo.thumbnailUrl} alt=""></img>
+                <img className="img-thumbnail" src={photo.url} alt=""></img>
               </div>
             ))}
           </div>
