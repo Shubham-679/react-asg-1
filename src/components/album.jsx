@@ -20,7 +20,7 @@ const Album = (props) => {
   }, []);
 
   const handleAdd = async () => {
-    const obj = { title: "Hakooana Matata" };
+    const obj = { title: " Rich Dad Poor Dad " };
     const { data: album } = await axios.post(
       "https://jsonplaceholder.typicode.com/albums",
       obj
