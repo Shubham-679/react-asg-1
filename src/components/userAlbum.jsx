@@ -41,6 +41,9 @@ const UserAlbum = (props) => {
     setState((userAlbum) => [newAlbum, ...userAlbum]);
 
   } 
+  const handleFocus = () => {
+    addNew.current.value="";
+  }
 
   return (
     <div>
@@ -49,7 +52,7 @@ const UserAlbum = (props) => {
       </div>
       <div>
         <form onSubmit={handleSubmit}>
-        <input ref={addNew} id="addNew" type="text" placeholder="Add New Album"/>
+        <input ref={addNew} id="addNew" type="text" onFocus={handleFocus} placeholder="Add New Album"/>
         <button className="btn btn-primary m-2">
           Add
         </button>
@@ -62,7 +65,7 @@ const UserAlbum = (props) => {
           </thead>
           <tbody>
             {userAlbum.map((useralbum, index) => (
-              <tr key={useralbum.id}>
+              <tr key={index}>
                 <td>{useralbum.title}</td>
               </tr>
             ))}

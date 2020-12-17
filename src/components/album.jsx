@@ -55,7 +55,7 @@ const Album = (props) => {
 
     try {
       await axios.delete(
-        "https://jsonplaceholder.typicode.com/albums" + "/" + album.id
+        "https://jsonplaceholder.typicode.com/albums"+ "/" + album.id
       );
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
