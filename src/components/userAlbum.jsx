@@ -4,6 +4,7 @@ import axios from "axios";
 const UserAlbum = (props) => {
   const [userAlbum, setState] = useState([]);
   const userId = props.match.params.id;
+  let addNew = React.createRef()
 
   useEffect(() => {
     async function fetchData() {
@@ -19,14 +20,27 @@ const UserAlbum = (props) => {
     fetchData();
   }, []);
 
-  const handleAdd = async () => {
-    const obj = { title: "Hakooana Matata" };
+  // const handleAdd = async () => {
+  //   const obj = { title: "Hakooana Matata" };
+  //   const { data: newAlbum } = await axios.post(
+  //     "https://jsonplaceholder.typicode.com/users/" + userId + "/albums",
+  //     obj
+  //   );
+  //   setState((userAlbum) => [newAlbum, ...userAlbum]);
+  // };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const add = addNew.current.value; 
+    const obj = { title: add};
     const { data: newAlbum } = await axios.post(
       "https://jsonplaceholder.typicode.com/users/" + userId + "/albums",
       obj
     );
     setState((userAlbum) => [newAlbum, ...userAlbum]);
-  };
+
+  } 
 
   return (
     <div>
@@ -34,9 +48,12 @@ const UserAlbum = (props) => {
         <h1> Albums of user {userId}</h1>
       </div>
       <div>
-        <button className="btn btn-primary m-2" onClick={handleAdd}>
+        <form onSubmit={handleSubmit}>
+        <input ref={addNew} id="addNew" type="text" placeholder="Add New Album"/>
+        <button className="btn btn-primary m-2">
           Add
         </button>
+        </form>
         <table className="table">
           <thead>
             <tr>
@@ -44,7 +61,7 @@ const UserAlbum = (props) => {
             </tr>
           </thead>
           <tbody>
-            {userAlbum.map((useralbum) => (
+            {userAlbum.map((useralbum, index) => (
               <tr key={useralbum.id}>
                 <td>{useralbum.title}</td>
               </tr>

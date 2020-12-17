@@ -19,17 +19,23 @@ const Album = (props) => {
     fetchData();
   }, []);
 
-  const handleAdd = async () => {
-    const obj = { title: " Rich Dad Poor Dad " };
-    const { data: album } = await axios.post(
-      "https://jsonplaceholder.typicode.com/albums",
-      obj
-    );
-    setState((albums) => [album, ...albums]);
-  };
+  // const handleAdd = async () => {
+  //   const obj = { title: " Rich Dad Poor Dad " };
+  //   const { data: album } = await axios.post(
+  //     "https://jsonplaceholder.typicode.com/albums",
+  //     obj
+  //   );
+  //   setState((albums) => [album, ...albums]);
+  // };
+
+  let b;
+  const handleChange = (e) => {
+    b = e.target.value;
+    console.log(b)
+  }
 
   const handleUpdate = async (album) => {
-    album.title = "UPDATED";
+    album.title = b;
     await axios.put(
       "https://jsonplaceholder.typicode.com/albums" + "/" + album.id,
       album
@@ -58,15 +64,17 @@ const Album = (props) => {
     }
   };
 
+
   return (
     <div>
       <div>
         <h1>Our Latest Albums</h1>
+        <input type="text" placeholder="Updates" onChange={handleChange}></input>
       </div>
       <div>
-        <button className="btn btn-primary m-2" onClick={handleAdd}>
+        {/* <button className="btn btn-primary m-2" onClick={handleAdd}>
           Add
-        </button>
+        </button> */}
         <table className="table">
           <thead>
             <tr>
@@ -79,12 +87,16 @@ const Album = (props) => {
             {albums.map((album) => (
               <tr key={album.id}>
                 <td>
-                  <button
+                  <div>
+                    
+                    <button
                     className="btn btn-sm btn-warning m-2"
                     onClick={() => handleUpdate(album)}
                   >
                     Update
                   </button>
+                  </div>
+                  
                 </td>
                 <td>
                   <Link to={`/albumphotos/${album.id}`}>{album.title}</Link>
