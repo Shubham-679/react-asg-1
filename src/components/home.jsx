@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "../actions/index";
+import { Link } from 'react-router-dom';
 
 const Home = (props) => {
   const users = useSelector((state) => state.user);
@@ -17,7 +18,7 @@ const Home = (props) => {
   //       dispatch(getalbum(userAlbum))
   //       props.history.push("/useralbums")
   //     }
-
+  
   return (
     <div>
       <div>
@@ -41,9 +42,9 @@ const Home = (props) => {
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>
-                <td>{user.username}</td>
+                <td> <Link to={`/useralbums/${user.id}`}>{user.username}</Link></td>
                 <td>{user.email}</td>
-                <td>{user.city}</td>
+                <td>{user.address.city}</td>
                 <td>{user.phone}</td>
                 <td>{user.website}</td>
               </tr>

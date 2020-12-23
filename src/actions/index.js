@@ -25,5 +25,32 @@ export const getphotos = () => async (dispatch) => {
   });
 };
 
+export const addAlbum = (text) => async (dispatch) => {
+  const obj = { title : text }
+  const { data : newAlbum } = await axios.post("https://jsonplaceholder.typicode.com/albums",obj);
+  dispatch({
+    type: 'ADD_ALBUM',
+    payload : newAlbum
+  });
+};
+
+export const getuserAlbum = (userId) => async (dispatch) => {
+
+  const { data: userAlbum } = await axios.get("https://jsonplaceholder.typicode.com/users/" + userId + "/albums");
+  dispatch({
+    type: 'USER_ALBUM',
+    payload : userAlbum
+  });
+}
+
+export const updateAlbum = (album) => async (dispatch) => {
+  await axios.put("https://jsonplaceholder.typicode.com/albums" + "/" + album.id, album); 
+  dispatch({
+    type: 'UPDATED_USER_ALBUM',
+    album   
+  });
+
+}
+
 
 

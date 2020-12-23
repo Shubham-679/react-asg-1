@@ -15,7 +15,7 @@ function App() {
       <Navigation/>
       <Switch>
         <Route path="/home" component={Home} />
-        <Route path="/useralbums" component={UserAlbum} />
+        <Route path="/useralbums/:id" component={UserAlbum} />
         <Route path="/albums" component={Album} />
         <Route path="/photos" component={Photo} /> 
         <Route path="/count" component={Count} /> 
