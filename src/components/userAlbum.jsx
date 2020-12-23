@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getuser } from '../actions/index';
 
 
 const UserAlbum = () => {
   let useralbums = useSelector(state=>state)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getuser(useralbums))
+  },[]);
         return ( 
             <div>
            <div><h1>user Albums</h1></div>

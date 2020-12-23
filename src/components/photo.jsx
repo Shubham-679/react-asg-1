@@ -1,22 +1,20 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch} from "react-redux"
+import { getphotos } from '../actions'
 
-class Photo extends Component {
-  state = {
-    photos: [],
-  };
-  async componentDidMount() {
-    const { data: photos } = await axios.get(
-      "https://jsonplaceholder.typicode.com/photos"
-    );
-    this.setState({ photos });
-  }
-  render() {
+const Photo = () => {
+  const photos = useSelector(state => state.photos)
+  const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    dispatch(getphotos())
+  },[])
+  
     return (
       <div>
         <div class="container">
           <div class="row">
-            {this.state.photos.map((photo) => (
+            {photos.map((photo) => (
               <div className="col-sm-2">
                 <img className="img-thumbnail" src={photo.thumbnailUrl}></img>
               </div>
@@ -26,6 +24,5 @@ class Photo extends Component {
       </div>
     );
   }
-}
 
 export default Photo;
