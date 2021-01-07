@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch} from "react-redux"
-import { getphotos } from '../actions'
+import { addPhoto, getphotos } from '../actions'
 
 const Photo = () => {
   const photos = useSelector(state => state.photos)
@@ -8,15 +8,27 @@ const Photo = () => {
   
   useEffect(()=>{
     dispatch(getphotos())
-  },[])
+  },[dispatch])
+
+  let input;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(input.value)
+    dispatch(addPhoto(input.value))
+  };
+
   
     return (
       <div>
-        <div class="container">
-          <div class="row">
-            {photos.map((photo) => (
-              <div className="col-sm-2">
-                <img className="img-thumbnail" src={photo.thumbnailUrl}></img>
+        <form onSubmit={handleSubmit}>
+          <input ref={node => input = node} id="add" type="text"/>
+          <button type="submit" className="btn btn-primary m-2">Add</button>
+        </form>
+        <div className="container">
+          <div className="row">
+            {photos.map((photo, index) => (
+              <div className="col-sm-2" key={index }>
+                <img className="img-thumbnail" src={photo.url} alt=""></img>
               </div>
             ))}
           </div>

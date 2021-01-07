@@ -9,7 +9,7 @@ const Home = (props) => {
 
   useEffect(() => {
     dispatch(getuser());
-  }, []);
+  }, [dispatch]);
 
   // const handleClick = async (id) => {
   //       console.log(id)
@@ -38,15 +38,15 @@ const Home = (props) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
+            {users.map((user, index) => (
+              <tr key={user._id}>
+                <td>{index +1}</td>
                 <td>{user.name}</td>
-                <td> <Link to={`/useralbums/${user.id}`}>{user.username}</Link></td>
+                <td> <Link to={`/useralbums/${user._id}`}>{user.username}</Link></td>
                 <td>{user.email}</td>
-                <td>{user.address.city}</td>
+                <td>{user.address}</td>
                 <td>{user.phone}</td>
-                <td>{user.website}</td>
+                <td>Not Available</td>
               </tr>
             ))}
           </tbody>

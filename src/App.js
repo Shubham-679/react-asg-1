@@ -7,6 +7,7 @@ import Photo from './components/photo';
 import Count from './components/count';
 import Timer from './components/timer';
 import UserAlbum from './components/userAlbum';
+import AlbumPhotos from "./components/albumphotos";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/home" component={Home} />
         <Route path="/useralbums/:id" component={UserAlbum} />
         <Route path="/albums" component={Album} />
+        <Route path="/albumphotos/:id" component={AlbumPhotos} />
         <Route path="/photos" component={Photo} /> 
         <Route path="/count" component={Count} /> 
         <Route path="/timer" component={Timer} />        

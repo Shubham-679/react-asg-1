@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getuser = () => async (dispatch) => {
-  const { data : users } = await axios.get("https://jsonplaceholder.typicode.com/users");
+  const { data : users } = await axios.get("http://localhost:3000/users");
    dispatch({
      type: 'USER',
      payload : users
@@ -9,16 +9,15 @@ export const getuser = () => async (dispatch) => {
 }
 
 export const getalbum = () => async (dispatch) => {
-  const { data : albums } = await axios.get("https://jsonplaceholder.typicode.com/albums");
+  const { data : albums } = await axios.get("http://localhost:3000/albums");
   dispatch({
     type: 'ALBUM',
     payload : albums
   });
-
 };
 
 export const getphotos = () => async (dispatch) => {
-  const { data : photos } = await axios.get("https://jsonplaceholder.typicode.com/photos");
+  const { data : photos } = await axios.get("http://localhost:3000/photos");
   dispatch({
     type: 'PHOTOS',
     payload : photos
@@ -27,29 +26,42 @@ export const getphotos = () => async (dispatch) => {
 
 export const addAlbum = (text) => async (dispatch) => {
   const obj = { title : text }
-  const { data : newAlbum } = await axios.post("https://jsonplaceholder.typicode.com/albums",obj);
+  const { data : newAlbum } = await axios.post("http://localhost:3000/albums",obj);
   dispatch({
     type: 'ADD_ALBUM',
     payload : newAlbum
   });
 };
 
+export const addPhoto = (text) => async (dispatch) => {
+  const obj = { url : text }
+  const { data : newPhoto } = await axios.post("http://localhost:3000/photos",obj);
+  dispatch({
+    type: 'ADD_PHOTO',
+    payload : newPhoto
+  });
+};
 export const getuserAlbum = (userId) => async (dispatch) => {
-
-  const { data: userAlbum } = await axios.get("https://jsonplaceholder.typicode.com/users/" + userId + "/albums");
+  const { data: userAlbum } = await axios.get("http://localhost:3000/albums/" + userId);
   dispatch({
     type: 'USER_ALBUM',
     payload : userAlbum
   });
 }
+export const getalbumPhotos = (albumId) => async (dispatch) => {
+  const { data: albumPhotos } = await axios.get("http://localhost:3000/photos/" + albumId);
+  dispatch({
+    type: 'ALBUM_PHOTOS',
+    payload : albumPhotos
+  });
+}
 
 export const updateAlbum = (album) => async (dispatch) => {
-  await axios.put("https://jsonplaceholder.typicode.com/albums" + "/" + album.id, album); 
+  await axios.put("http://localhost:3000/albums/" + album._id, album); 
   dispatch({
     type: 'UPDATED_USER_ALBUM',
     album   
   });
-
 }
 
 

@@ -11,7 +11,7 @@ const albumReducer = (state = [], action) => {
       return state = action.payload;
     
     case "UPDATED_USER_ALBUM":
-      return state.map(a =>(a.id === action.album.id) ? { ...a, title : action.album.title} : a)
+      return state.map(a =>(a._id === action.album._id) ? { ...a, title : action.album.title} : a)
 
     default:
       return state;

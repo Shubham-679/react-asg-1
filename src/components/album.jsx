@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getalbum, addAlbum } from "../actions";
+import { Link } from "react-router-dom";
+import { getalbum, addAlbum, updateAlbum  } from "../actions";
 
 const Album = () => {
   const albums = useSelector((state) => state.album);
@@ -8,13 +9,25 @@ const Album = () => {
 
   useEffect(() => {
     dispatch(getalbum());
-  }, []);
+  }, [dispatch]);
 
   let input;
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(input.value)
     dispatch(addAlbum(input.value))
   };
+
+  
+  let value;
+  const handleChange = (e) => {
+    value = e.target.value;
+  }
+ const handleClick = (album) => {
+   console.log(album)
+  album.title = value;
+  dispatch(updateAlbum(album))
+ }
 
   return (
     <div>
@@ -31,13 +44,22 @@ const Album = () => {
             <tr>
               <th>S.No</th>
               <th>Album Title</th>
+              <th>Update</th>
             </tr>
           </thead>
           <tbody>
             {albums.map((album, index) => (
               <tr key={index}>
                 <td>{index+1}</td>
-                <td>{album.title}</td>
+                <td>
+                <Link to={`/albumphotos/${album._id}`}>{album.title}</Link>
+                </td>
+                <td>
+                  <div>
+                <input type="text" placeholder="Updates" onChange={handleChange}></input>
+                <button className="btn btn-sm btn-danger m-2" onClick={()=>handleClick(album)}>Update</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
